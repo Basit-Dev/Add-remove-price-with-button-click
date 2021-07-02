@@ -1,6 +1,7 @@
 import "./styles.css";
 import React from "react";
 import checkedList from "./isCheckedList";
+import DisplayLists from "./Components/DisplayLists";
 
 class App extends React.Component {
   constructor(props) {
@@ -26,6 +27,7 @@ class App extends React.Component {
       };
     });
   };
+
   decrement = (e, price) => {
     // Disable the button if the count is 0
     if (this.state.count === 0) {
@@ -39,26 +41,15 @@ class App extends React.Component {
       });
     }
   };
+
   render() {
     return (
       <div className="container">
-        {this.state.isChecked.map((data) => {
-          return (
-            <div key={data.id} className="label">
-              <h1>ID: {data.id}</h1>
-              <p>Name: {data.name}</p>
-              <p>IsChecked: {data.checked.toString()}</p>
-              <p>£{data.price}</p>
-              <button onClick={() => this.increment(data.price)}>Add</button>
-              <button
-                style={{ marginLeft: "10px" }}
-                onClick={(e) => this.decrement(e, data.price)}
-              >
-                Remove
-              </button>
-            </div>
-          );
-        })}
+        <DisplayLists
+          list={this.state.isChecked}
+          increment={this.increment}
+          decrement={this.decrement}
+        />
         <div className="total">Total: {this.state.count}</div>
       </div>
     );
